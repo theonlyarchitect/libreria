@@ -63,11 +63,11 @@ export class CatalogoLibrosService {
   }
 
   getByTopic(filter: string): Observable<EntityArrayResponseType> {
-    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/topic/${filter}`, { observe: 'response' });
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/tematica/${filter}`, { observe: 'response' });
   }
 
   getByTitle(filter: string): Observable<EntityArrayResponseType> {
-    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/title/${filter}`, { observe: 'response' });
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/titulo/${filter}`, { observe: 'response' });
   }
 
 

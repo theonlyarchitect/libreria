@@ -21,6 +21,7 @@ import { CatalogoLibrosDeleteDialogComponent } from '../../catalogolibros/delete
 import { CatalogoLibrosComponent } from '../../catalogolibros/list/catalogolibros.component'
 import { CatalogoLibrosUpdateComponent } from '../../catalogolibros/update/catalogolibros-update.component';
 import {RetiroComponent} from "../../prestamos/retiro/retiro.component";
+import {CatalogoLibrosSearchComponent} from "../../catalogolibros/search/catalogoLibros-search.component";
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import {RetiroComponent} from "../../prestamos/retiro/retiro.component";
     CatalogoLibrosComponent,
     CatalogoLibrosUpdateComponent,
     UserComponent,
+    CatalogoLibrosSearchComponent,
     RetiroComponent,
     UserDeleteDialogComponent,
     CatalogoLibrosDeleteDialogComponent,

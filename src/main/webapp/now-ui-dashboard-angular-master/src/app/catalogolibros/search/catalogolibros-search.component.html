@@ -1,0 +1,110 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="places-buttons">
+            <div class="row">
+              <div class="col-md-6 mr-auto text-left">
+                <h4 class="card-title">
+                  Panel de Busqueda de Catalogo de Libros
+                </h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-8 ml-auto mr-auto">
+                  <form name="editForm" class="row" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+                  <div class="col-md-4">
+                    <label class="form-control-label" for="opcionFiltrado">Tipo de Filtrado</label>
+                    <select class="form-control" id="opcionFiltrado" data-cy="opcionFiltrado" name="opcionFiltrado" formControlName="opcionFiltrado" (ngModelChange)="onChange($event)">
+                      <option value="0"> Mostrar Todos </option>
+                      <option value="1"> Mostar Solo los Disponibles </option>
+                      <option value="2"> Mostar Solo los no Disponibles </option>
+                      <option value="3"> Filtrar por titulo </option>
+                      <option value="4"> Filtrar por tematica </option>
+                      <option value="5"> Filtrar por editorial </option>
+                      <option value="6"> Filtrar por autor </option>
+                      <option value="7"> Filtrar por año </option>
+                    </select>
+                  </div>
+                  <div class="col-md-4" *ngIf="filterByString">
+                    <label class="form-control-label" for="stringFilter">Filtro: </label>
+                    <input type="text" class="form-control" name="stringFilter" id="stringFilter"  formControlName="stringFilter" />
+                  </div>
+                    <div class="col-md-4" *ngIf="filteyByNumber">
+                      <label class="form-control-label" for="stringFilter">Filtro: </label>
+                      <input type="number" class="form-control" name="intFilter" id="intFilter"  formControlName="intFilter" />
+                    </div>
+                  <div class="col-md-4">
+                    <button class="btn btn-primary btn-block btn-info" (click)="applyFilters()">
+                      <i class="now-ui-icons ui-1_zoom-bold"></i>
+                      Aplicar Filtros
+                    </button>
+                  </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="title">
+            Lista de catalogos de libros:
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive" id="entities" *ngIf="catalogoLibrosTable && catalogoLibrosTable.length > 0">
+            <table class="table table-striped" aria-describedby="page-heading">
+                  <thead>
+                    <tr>
+                      <th scope="col"><span >ID</span></th>
+                      <th scope="col"><span>Titulo</span></th>
+                      <th scope="col"><span>Fecha de Lanzamiento</span></th>
+                      <th scope="col"><span>Inventario</span></th>
+                      <th scope="col"><span>Editorial</span></th>
+                      <th scope="col"><span>Tematica</span></th>
+                      <th scope="col"><span>Autor</span></th>
+                      <th scope="col"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let catalogoLibroCurrent of catalogoLibrosTable; trackBy: trackId" data-cy="entityTable">
+                      <td>{{ catalogoLibroCurrent.id }}</td>
+                      <td>{{ catalogoLibroCurrent.titulo }}</td>
+                      <td>{{ catalogoLibroCurrent.fechaLanzamiento }}</td>
+                      <td>{{ catalogoLibroCurrent.inventario }}</td>
+                      <td>{{ catalogoLibroCurrent.editorial }}</td>
+                      <td>{{ catalogoLibroCurrent.tematica }}</td>
+                      <td>{{ catalogoLibroCurrent.autor }}</td>
+
+                      <td class="text-right">
+                        <div class="btn-group">
+                          <button
+                            type="submit"
+                            [routerLink]="['/catalogoLibros', catalogoLibroCurrent.id, 'edit']"
+                            class="btn btn-primary btn-sm"
+                            data-cy="entityEditButton"
+                          >
+                            <span class="d-none d-md-inline" >Edit</span>
+                          </button>
+
+                          <button type="submit" (click)="delete(catalogoLibroCurrent)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                            <span class="d-none d-md-inline" >Delete</span>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
