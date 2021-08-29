@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,6 +86,94 @@ public class CatalogoLibrosController {
     public ResponseEntity<List<CatalogoLibros>> getAll(){
         List<CatalogoLibros> entityList = catalogoLibrosRepository.findAll();
         return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(path = "enexistencia/")
+    public ResponseEntity<List<CatalogoLibros>> getInExistence(){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findCatalogoLibrosByInventarioGreaterThan(0L);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(path = "soldOut/")
+    public ResponseEntity<List<CatalogoLibros>> getOuExistence(){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findCatalogoLibrosByInventarioEquals(0L);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(value = "titulo/{titulo}")
+    public ResponseEntity<List<CatalogoLibros>> getByTitle(
+            @PathVariable(value = "titulo") final String filter
+    ){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findCatalogoLibrosByTituloContaining(filter);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(value = "autor/{autor}")
+    public ResponseEntity<List<CatalogoLibros>> getByAutor(
+            @PathVariable(value = "autor") final String filter
+    ){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findCatalogoLibrosByAutorContaining(filter);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(value = "tematica/{tema}")
+    public ResponseEntity<List<CatalogoLibros>> getByTopic(
+            @PathVariable(value = "tema") final String filter
+    ){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findCatalogoLibrosByTematicaContaining(filter);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(value = "editorial/{editorial}")
+    public ResponseEntity<List<CatalogoLibros>> getByEditorial(
+            @PathVariable(value = "editorial") final String filter
+    ){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findCatalogoLibrosByEditorialContains(filter);
+        return ResponseEntity.ok().body(entityList);
+    }
+
+    @GetMapping(value = "anno/{anno}")
+    public ResponseEntity<List<CatalogoLibros>> getByAnno(
+            @PathVariable(value = "anno") final Long filter
+    ){
+        List<CatalogoLibros> entityList = catalogoLibrosRepository.findAll();
+        List<CatalogoLibros> result = new ArrayList<>();
+        for (CatalogoLibros catalogo : entityList
+             ) {
+            if(catalogo.getFechaLanzamiento().getYear() == filter){
+                result.add(catalogo);
+            }
+
+        }
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping(value = "prestar/{id}")
+    public ResponseEntity<CatalogoLibros> getBorrow(
+            @PathVariable(value = "id") final Long id
+    ){
+        Optional<CatalogoLibros> entity = catalogoLibrosRepository.findById(id);
+        if(entity.isPresent()){
+            CatalogoLibros instance  = entity.get();
+            instance.setInventario(entity.get().getInventario() - 1);
+            catalogoLibrosRepository.save(instance);
+            return ResponseEntity.ok(instance);
+        }
+return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping(value = "devolver/{id}")
+    public ResponseEntity<CatalogoLibros> getUnBorrow(
+            @PathVariable(value = "id") final Long id
+    ){
+        Optional<CatalogoLibros> entity = catalogoLibrosRepository.findById(id);
+        if(entity.isPresent()){
+            CatalogoLibros instance  = entity.get();
+            instance.setInventario(entity.get().getInventario() + 1);
+            catalogoLibrosRepository.save(instance);
+            return ResponseEntity.ok(instance);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping(value = "/{id}")

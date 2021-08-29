@@ -34,4 +34,41 @@ export class CatalogoLibrosService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  inExistence(): Observable<EntityResponseType> {
+    return this.http.get<ICatalogoLibros>(`${this.resourceUrl}/enexistencia/`, { observe: 'response' });
+  }
+
+  soldout(): Observable<EntityResponseType> {
+    return this.http.get<ICatalogoLibros>(`${this.resourceUrl}/soldOut/`, { observe: 'response' });
+  }
+
+  getByAnno(id: number): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/anno/${id}`, { observe: 'response' });
+  }
+
+  getByAutor(filter: string): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/autor/${filter}`, { observe: 'response' });
+  }
+
+  devolver(id: number): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/devolver/${id}`, { observe: 'response' });
+  }
+
+  prestar(id: number): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/prestar/${id}`, { observe: 'response' });
+  }
+
+  getEditorial(filter: string): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/editorial/${filter}`, { observe: 'response' });
+  }
+
+  getByTopic(filter: string): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/topic/${filter}`, { observe: 'response' });
+  }
+
+  getByTitle(filter: string): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/title/${filter}`, { observe: 'response' });
+  }
+
+
 }
