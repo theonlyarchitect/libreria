@@ -9,7 +9,7 @@ import { IUser, User } from '../user.model';
 import { UserService } from '../service/user.service';
 
 @Component({
-  selector: 'user-update',
+  selector: 'usernew',
   templateUrl: './user-update.component.html',
 })
 export class UserUpdateComponent implements OnInit {
@@ -26,7 +26,9 @@ export class UserUpdateComponent implements OnInit {
   constructor(protected userService: UserService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
+    console.log(this.activatedRoute.data);
     this.activatedRoute.data.subscribe(({ user }) => {
+      console.log(user);
       this.updateForm(user);
     });
   }
@@ -38,6 +40,7 @@ export class UserUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const user = this.createFromForm();
+    console.log(user);
     if (user.id !== undefined) {
       this.subscribeToSaveResponse(this.userService.update(user));
     } else {
@@ -69,18 +72,19 @@ export class UserUpdateComponent implements OnInit {
       id: user.id,
       nombre: user.nombre,
       apellidos: user.apellidos,
-      fechaNacimiento: user.fechaNacimento,
+      fechaNacimiento: user.fechaNacimiento,
       estado: user.estado
     });
   }
 
   protected createFromForm(): IUser {
+    console.log(this.editForm.get(['estado'])!.value);
     return {
       ...new User(),
       id: this.editForm.get(['id'])!.value,
       nombre: this.editForm.get(['nombre'])!.value,
       apellidos: this.editForm.get(['apellidos'])!.value,
-      fechaNacimento: this.editForm.get(['fechaNacimiento'])!.value,
+      fechaNacimiento: this.editForm.get(['fechaNacimiento'])!.value,
       estado: this.editForm.get(['estado'])!.value,
     };
   }

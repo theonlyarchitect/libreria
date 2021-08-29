@@ -19,11 +19,6 @@ const routes: Routes =[
       loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
   }]},
   {
-    path: 'user',
-    data: { pageTitle: 'democraticApp.userInformation.home.title' },
-    loadChildren: () => import('./user/user.module').then(m => m.UserModule),
-  },
-  {
     path: '**',
     redirectTo: 'dashboard'
   }
@@ -31,11 +26,10 @@ const routes: Routes =[
 
 @NgModule({
   imports: [
-    CommonModule,
-    BrowserModule,
     RouterModule.forRoot(routes)
   ],
   exports: [
+    RouterModule
   ],
 })
 export class AppRoutingModule { }

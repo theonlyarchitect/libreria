@@ -4,12 +4,12 @@ export interface IUser {
     id?: number;
     nombre?: string;
     apellidos?: string;
-    fechaNacimento?: dayjs.Dayjs;
+    fechaNacimiento?: dayjs.Dayjs;
     estado?: string;
   }
   
   export class User implements IUser {
-    constructor(public id?: number, public nombre?: string,public apellidos?: string,public fechaNacimento?: dayjs.Dayjs, public Estado?: String) {}
+    constructor(public id?: number, public nombre?: string,public apellidos?: string,public fechaNacimiento?: dayjs.Dayjs, public estado?: string) {}
   }
   
   export function getUserIdentifier(user: IUser): number | undefined {

@@ -1,237 +1,76 @@
 <div class="row justify-content-center">
     <div class="col-8">
-      <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <form nombre="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <br>
+      <br>
+
         <h2
-          id="jhi-user-information-heading"
+          id="user-information-heading"
           data-cy="UserInformationCreateUpdateHeading"
-          jhiTranslate="democraticApp.userInformation.home.createOrEditLabel"
         >
-          Create or edit a User Information
+          Create or edit a User
         </h2>
   
         <div>
-          <jhi-alert-error></jhi-alert-error>
   
           <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-            <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
-            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+            <label class="form-control-label"  for="id">ID</label>
+            <input type="number" class="form-control" nombre="id" id="id" data-cy="id" formControlName="id" [readonly]="true" />
           </div>
   
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.identification" for="field_identification"
-              >Identification</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="identification"
-              id="field_identification"
-              data-cy="identification"
-              formControlName="identification"
-            />
-            <div
-              *ngIf="
-                editForm.get('identification')!.invalid && (editForm.get('identification')!.dirty || editForm.get('identification')!.touched)
-              "
-            >
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('identification')?.errors?.required"
-              >
-                This field is required.
-              </small>
-            </div>
+            <label class="form-control-label" for="nombre">Nombre</label>
+            <input type="text" class="form-control" nombre="nombre" id="nombre" data-cy="nombre" formControlName="nombre" />
           </div>
   
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
-          </div>
+
   
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.secondName" for="field_secondName"
-              >Second Name</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="secondName"
-              id="field_secondName"
-              data-cy="secondName"
-              formControlName="secondName"
-            />
+            <label class="form-control-label" for="apellidos">Apellidos</label>
+            <input type="text" class="form-control" nombre="apellidos" id="apellidos" data-cy="apellidos" formControlName="apellidos" />
           </div>
-  
+
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.lastName" for="field_lastName">Last Name</label>
-            <input type="text" class="form-control" name="lastName" id="field_lastName" data-cy="lastName" formControlName="lastName" />
-          </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.secondLastName" for="field_secondLastName"
-              >Second Last Name</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="secondLastName"
-              id="field_secondLastName"
-              data-cy="secondLastName"
-              formControlName="secondLastName"
-            />
-          </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.birthdayDate" for="field_birthdayDate"
+            <label class="form-control-label"  for="fechaNacimiento"
               >Birthday Date</label
             >
             <div class="input-group">
               <input
-                id="field_birthdayDate"
-                data-cy="birthdayDate"
-                type="text"
+                id="fechaNacimiento"
+                data-cy="fechaNacimiento"
+                type="date"
                 class="form-control"
-                name="birthdayDate"
-                ngbDatepicker
-                #birthdayDateDp="ngbDatepicker"
-                formControlName="birthdayDate"
+                nombre="fechaNacimiento"
+                formControlName="fechaNacimiento"
               />
-              <span class="input-group-append">
-                <button type="button" class="btn btn-secondary" (click)="birthdayDateDp.toggle()">
-                  <fa-icon icon="calendar-alt"></fa-icon>
-                </button>
-              </span>
+
             </div>
             <div
-              *ngIf="editForm.get('birthdayDate')!.invalid && (editForm.get('birthdayDate')!.dirty || editForm.get('birthdayDate')!.touched)"
+              *ngIf="editForm.get('fechaNacimiento')!.invalid && (editForm.get('fechaNacimiento')!.dirty || editForm.get('fechaNacimiento')!.touched)"
             >
               <small
                 class="form-text text-danger"
-                *ngIf="editForm.get('birthdayDate')?.errors?.required"
-                jhiTranslate="entity.validation.required"
+                *ngIf="editForm.get('fechaNacimiento')?.errors?.required"
               >
                 This field is required.
               </small>
             </div>
           </div>
-  
+
           <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.sex" for="field_sex">Sex</label>
-            <select class="form-control" name="sex" formControlName="sex" id="field_sex" data-cy="sex">
-              <option [ngValue]="null">{{ 'democraticApp.Sex.null' | translate }}</option>
-              <option value="Mujer">{{ 'democraticApp.Sex.Mujer' | translate }}</option>
-              <option value="Hombre">{{ 'democraticApp.Sex.Hombre' | translate }}</option>
+            <label class="form-control-label" for="estado">estado</label>
+            <select class="form-control" nombre="estado" formControlName="estado" id="estado" data-cy="estado">
+              <option [ngValue]="null">Null</option>
+              <option value="ACTIVO">Activo</option>
+              <option value="INACTIVO"> Inactivo</option>
             </select>
           </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.phoneNumber" for="field_phoneNumber"
-              >Phone Number</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              name="phoneNumber"
-              id="field_phoneNumber"
-              data-cy="phoneNumber"
-              formControlName="phoneNumber"
-            />
-          </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.status" for="field_status">Status</label>
-            <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
-              <option [ngValue]="null">{{ 'democraticApp.AppStatus.null' | translate }}</option>
-              <option value="Activo">{{ 'democraticApp.AppStatus.Activo' | translate }}</option>
-              <option value="Inactivo">{{ 'democraticApp.AppStatus.Inactivo' | translate }}</option>
-            </select>
-            <div *ngIf="editForm.get('status')!.invalid && (editForm.get('status')!.dirty || editForm.get('status')!.touched)">
-              <small class="form-text text-danger" *ngIf="editForm.get('status')?.errors?.required" jhiTranslate="entity.validation.required">
-                This field is required.
-              </small>
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.profilePicture" for="field_profilePicture"
-              >Profile Picture</label
-            >
-            <div>
-              <img
-                [src]="'data:' + editForm.get('profilePictureContentType')!.value + ';base64,' + editForm.get('profilePicture')!.value"
-                style="max-height: 100px"
-                *ngIf="editForm.get('profilePicture')!.value"
-                alt="userInformation image"
-              />
-              <div *ngIf="editForm.get('profilePicture')!.value" class="form-text text-danger clearfix">
-                <span class="pull-left"
-                  >{{ editForm.get('profilePictureContentType')!.value }}, {{ byteSize(editForm.get('profilePicture')!.value) }}</span
-                >
-                <button
-                  type="button"
-                  (click)="clearInputImage('profilePicture', 'profilePictureContentType', 'file_profilePicture')"
-                  class="btn btn-secondary btn-xs pull-right"
-                >
-                  <fa-icon icon="times"></fa-icon>
-                </button>
-              </div>
-              <input
-                type="file"
-                id="file_profilePicture"
-                data-cy="profilePicture"
-                (change)="setFileData($event, 'profilePicture', true)"
-                accept="image/*"
-                jhiTranslate="entity.action.addimage"
-              />
-            </div>
-            <input
-              type="hidden"
-              class="form-control"
-              name="profilePicture"
-              id="field_profilePicture"
-              data-cy="profilePicture"
-              formControlName="profilePicture"
-            />
-            <input
-              type="hidden"
-              class="form-control"
-              name="profilePictureContentType"
-              id="field_profilePictureContentType"
-              formControlName="profilePictureContentType"
-            />
-          </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.registerUser" for="field_registerUser"
-              >Register User</label
-            >
-            <select class="form-control" id="field_registerUser" data-cy="registerUser" name="registerUser" formControlName="registerUser">
-              <option [ngValue]="null"></option>
-              <option
-                [ngValue]="userOption.id === editForm.get('registerUser')!.value?.id ? editForm.get('registerUser')!.value : userOption"
-                *ngFor="let userOption of usersSharedCollection; trackBy: trackUserById"
-              >
-                {{ userOption.id }}
-              </option>
-            </select>
-          </div>
-  
-          <div class="form-group">
-            <label class="form-control-label" jhiTranslate="democraticApp.userInformation.district" for="field_district">District</label>
-            <select class="form-control" id="field_district" data-cy="district" name="district" formControlName="district">
-              <option [ngValue]="null"></option>
-              <option
-                [ngValue]="districtOption.id === editForm.get('district')!.value?.id ? editForm.get('district')!.value : districtOption"
-                *ngFor="let districtOption of districtsSharedCollection; trackBy: trackDistrictById"
-              >
-                {{ districtOption.valueDistrict + ' - ' + districtOption.id }}
-              </option>
-            </select>
-          </div>
+ 
         </div>
   
         <div>
           <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+            Cancelar
           </button>
   
           <button
@@ -241,6 +80,7 @@
             [disabled]="editForm.invalid || isSaving"
             class="btn btn-primary"
           >
+          Guardar
           </button>
         </div>
       </form>

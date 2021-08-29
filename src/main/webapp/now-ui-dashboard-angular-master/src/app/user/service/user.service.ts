@@ -14,6 +14,7 @@ export class UserService {
   constructor(protected http: HttpClient) {}
 
   create(user: IUser): Observable<EntityResponseType> {
+    console.log(user);
     return this.http.post<IUser>(this.resourceUrl, user, { observe: 'response' });
   }
 

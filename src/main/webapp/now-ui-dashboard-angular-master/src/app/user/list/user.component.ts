@@ -22,8 +22,8 @@ export class UserComponent implements OnInit {
     this.userService.getAll().subscribe(
       (res: HttpResponse<IUser[]>) => {
         this.isLoading = false;
-        console.log(res.body);
         this.users = res.body ?? [];
+        //console.log(this.users);
       },
       () => {
         this.isLoading = false;

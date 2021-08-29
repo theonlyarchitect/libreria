@@ -10,19 +10,22 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
+import { BrowserModule } from '@angular/platform-browser'
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { CommonModule } from '@angular/common';
+import { EntityRoutingModule } from './entity-routing.module';
 
 @NgModule({
   imports: [
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
     ComponentsModule,
     RouterModule,
+    EntityRoutingModule,
     AppRoutingModule,
     NgbModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   declarations: [
     AppComponent,

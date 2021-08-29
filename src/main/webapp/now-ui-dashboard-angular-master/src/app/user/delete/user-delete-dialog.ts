@@ -8,7 +8,7 @@ import { IUser } from '../user.model';
   templateUrl: './user-delete-dialog.html',
 })
 export class UserDeleteDialogComponent {
-  province?: IUser;
+  user?: IUser;
 
   constructor(protected provinceService: UserService, protected activeModal: NgbActiveModal) {}
 
