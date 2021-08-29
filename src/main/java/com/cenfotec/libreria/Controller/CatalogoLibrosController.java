@@ -1,7 +1,11 @@
 package com.cenfotec.libreria.Controller;
 
+import com.cenfotec.libreria.Domain.Autor;
 import com.cenfotec.libreria.Domain.CatalogoLibros;
+import com.cenfotec.libreria.Domain.Tema;
+import com.cenfotec.libreria.Repository.AutorRepository;
 import com.cenfotec.libreria.Repository.CatalogoLibrosRepository;
+import com.cenfotec.libreria.Repository.TemaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +20,14 @@ public class CatalogoLibrosController {
 
     private final CatalogoLibrosRepository catalogoLibrosRepository;
 
-    public CatalogoLibrosController(CatalogoLibrosRepository catalogoLibrosRepository) {
+    private final AutorRepository autorRepository;
+
+    private final TemaRepository temaRepository;
+
+    public CatalogoLibrosController(CatalogoLibrosRepository catalogoLibrosRepository, AutorRepository autorRepository, TemaRepository temaRepository) {
         this.catalogoLibrosRepository = catalogoLibrosRepository;
+        this.autorRepository = autorRepository;
+        this.temaRepository = temaRepository;
     }
 
     @PostMapping
@@ -27,6 +37,29 @@ public class CatalogoLibrosController {
 
         if(catalogoLibro.getId() != null){
             return ResponseEntity.badRequest().build();
+        }
+
+        if(!catalogoLibro.getAutores().isEmpty()){
+            for ( Autor autor : catalogoLibro.getAutores() ) {
+                if(!autorRepository.existsById(autor.getId())){
+                    autor.setId(null);
+                    autor = autorRepository.save(autor);
+                }
+
+                autor = autorRepository.getById(autor.getId());
+                autor.addCatalogoLibros(catalogoLibro);
+            }
+        }
+        if(!catalogoLibro.getTemas().isEmpty()){
+            for ( Tema tema : catalogoLibro.getTemas() ) {
+                if(!temaRepository.existsById(tema.getId())){
+                    tema.setId(null);
+                    tema = temaRepository.save(tema);
+                }
+
+                tema = temaRepository.getById(tema.getId());
+                tema.addCatalogoLibros(catalogoLibro);
+            }
         }
 
         CatalogoLibros result = catalogoLibrosRepository.save(catalogoLibro);

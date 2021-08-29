@@ -1,5 +1,7 @@
 package com.cenfotec.libreria.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,12 +25,16 @@ public class CatalogoLibros {
     @Column(name = "inventario")
     private long inventario;
 
+    @Column(name = "editorial")
+    private String editorial;
+
     @ManyToMany()
     @JoinTable(
             name = "autores_catalogo_libros",
             joinColumns = @JoinColumn(name = "catalogo_libros_id"),
             inverseJoinColumns = @JoinColumn(name = "autores_id")
     )
+    @JsonIgnoreProperties("catalogoLibros")
     private List<Autor> autores = new ArrayList<>();
 
     @ManyToMany()
@@ -37,15 +43,17 @@ public class CatalogoLibros {
             joinColumns = @JoinColumn(name = "catalogo_libros_id"),
             inverseJoinColumns = @JoinColumn(name = "temas_id")
     )
+    @JsonIgnoreProperties("catalogoLibros")
     private List<Tema> temas = new ArrayList<>();
 
-    public CatalogoLibros(Long id, String titulo, LocalDate fechaLanzamiento, long inventario, List<Autor> autores, List<Tema> temas) {
+    public CatalogoLibros(Long id, String titulo, LocalDate fechaLanzamiento, long inventario, String editorial, List<Autor> autores, List<Tema> temas) {
         this.id = id;
         this.titulo = titulo;
         this.fechaLanzamiento = fechaLanzamiento;
         this.inventario = inventario;
         this.autores = autores;
         this.temas = temas;
+        this.editorial = editorial;
     }
 
     public CatalogoLibros() {
@@ -100,4 +108,11 @@ public class CatalogoLibros {
         this.temas = temas;
     }
 
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
 }

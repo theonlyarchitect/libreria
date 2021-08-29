@@ -1,7 +1,11 @@
 package com.cenfotec.libreria.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "temas")
@@ -15,9 +19,15 @@ public class Tema implements Serializable {
     @Column(name = "nombre")
     private String nombre;
 
-    public Tema(Long id, String nombre) {
+    @ManyToMany(mappedBy = "temas")
+    @JsonIgnoreProperties("temas")
+    private List<CatalogoLibros> catalogoLibros = new ArrayList<>();
+
+
+    public Tema(Long id, String nombre, List<CatalogoLibros> catalogoLibros) {
         this.id = id;
         this.nombre = nombre;
+        this.catalogoLibros = catalogoLibros;
     }
 
     public Tema() {
@@ -38,5 +48,17 @@ public class Tema implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public void addCatalogoLibros(CatalogoLibros catalogoLibro) {
+        this.catalogoLibros.add(catalogoLibro);
+    }
+
+    public List<CatalogoLibros> getCatalogoLibros() {
+        return catalogoLibros;
+    }
+
+    public void setCatalogoLibros(List<CatalogoLibros> catalogoLibros) {
+        this.catalogoLibros = catalogoLibros;
     }
 }

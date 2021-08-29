@@ -35,6 +35,23 @@ public class UsuarioController {
                 .body(result);
     }
 
+    @PutMapping(value = "/{id}")
+    @ResponseStatus()
+    public ResponseEntity<Usuario> updateOne(
+            @PathVariable(value = "id", required = false) final Long id,
+            @RequestBody Usuario usuario) throws URISyntaxException {
+
+
+        if(usuario.getId() == null){
+            return ResponseEntity.badRequest().build();
+        }
+
+        Usuario result = usuarioRepository.save(usuario);
+        return ResponseEntity
+                .created(new URI("api/Usuario/" +result.getId()))
+                .body(result);
+    }
+
     @GetMapping
     public ResponseEntity<List<Usuario>> getAll(){
         List<Usuario> entityList = usuarioRepository.findAll();
@@ -46,6 +63,15 @@ public class UsuarioController {
             @PathVariable(value = "id") final Long id
     ){
         Optional<Usuario> entity = usuarioRepository.findById(id);
+        return entity.map(usuario -> ResponseEntity.ok().body(usuario)).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Usuario> deleteOne(
+            @PathVariable(value = "id") final Long id
+    ){
+        Optional<Usuario> entity = usuarioRepository.findById(id);
+        usuarioRepository.delete(entity.get());
         return entity.map(usuario -> ResponseEntity.ok().body(usuario)).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
