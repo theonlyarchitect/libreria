@@ -1,6 +1,7 @@
 package com.cenfotec.libreria.Controller;
 
 import com.cenfotec.libreria.Domain.Autor;
+import com.cenfotec.libreria.Domain.Usuario;
 import com.cenfotec.libreria.Repository.AutorRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,17 @@ public class AutorController {
         return entity.map(autor -> ResponseEntity.ok().body(autor)).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Autor> deleteOne(
+            @PathVariable(value = "id") final Long id
+    ){
+        autorRepository.deleteById(id);
+        Optional<Autor> entity = autorRepository.findById(id);
+        autorRepository.delete(entity.get());
+        return entity.map(usuario -> ResponseEntity.ok().body(usuario)).orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
 
 }

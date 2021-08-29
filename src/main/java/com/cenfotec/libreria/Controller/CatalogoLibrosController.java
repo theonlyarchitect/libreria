@@ -30,6 +30,7 @@ public class CatalogoLibrosController {
         this.temaRepository = temaRepository;
     }
 
+    /*
     @PostMapping
     @ResponseStatus()
     public ResponseEntity<CatalogoLibros> createOne(@RequestBody CatalogoLibros catalogoLibro) throws URISyntaxException {
@@ -67,8 +68,20 @@ public class CatalogoLibrosController {
                 .created(new URI("api/CatalogoLibro/" +result.getId()))
                 .body(result);
     }
+     */
 
-    @GetMapping
+    @PostMapping
+    @ResponseStatus()
+    public ResponseEntity<CatalogoLibros> createOne(@RequestBody CatalogoLibros catalogoLibro) throws URISyntaxException {
+        catalogoLibro.setAutores(null);
+        catalogoLibro.setTemas(null);
+        CatalogoLibros result = catalogoLibrosRepository.save(catalogoLibro);
+        return ResponseEntity
+                .created(new URI("api/CatalogoLibro/" +result.getId()))
+                .body(result);
+    }
+
+        @GetMapping
     public ResponseEntity<List<CatalogoLibros>> getAll(){
         List<CatalogoLibros> entityList = catalogoLibrosRepository.findAll();
         return ResponseEntity.ok().body(entityList);
@@ -82,5 +95,16 @@ public class CatalogoLibrosController {
         return entity.map(catalogoLibros -> ResponseEntity.ok().body(catalogoLibros)).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<CatalogoLibros> deleteOne(
+            @PathVariable(value = "id") final Long id
+    ){
+        Optional<CatalogoLibros> entity = catalogoLibrosRepository.findById(id);
+        catalogoLibrosRepository.delete(entity.get());
+        return entity.map(catalogoLibros -> ResponseEntity.ok().body(catalogoLibros)).orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
 
 }

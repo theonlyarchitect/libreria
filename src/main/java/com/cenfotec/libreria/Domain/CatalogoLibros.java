@@ -28,6 +28,12 @@ public class CatalogoLibros {
     @Column(name = "editorial")
     private String editorial;
 
+    @Column(name = "tematica")
+    private String tematica;
+
+    @Column(name = "autor")
+    private String autor;
+
     @ManyToMany()
     @JoinTable(
             name = "autores_catalogo_libros",
@@ -114,5 +120,21 @@ public class CatalogoLibros {
 
     public void setEditorial(String editorial) {
         this.editorial = editorial;
+    }
+
+    public String getTematica() {
+        return tematica;
+    }
+
+    public void setTematica(String tematica) {
+        this.tematica = tematica;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 }
