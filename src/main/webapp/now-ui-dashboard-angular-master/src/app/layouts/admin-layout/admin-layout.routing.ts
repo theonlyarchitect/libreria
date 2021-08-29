@@ -15,15 +15,17 @@ import { UserRoutingResolveService } from '../../user/route/user-routing-resolve
 import { CatalogoLibrosUpdateComponent } from '../../catalogolibros/update/catalogolibros-update.component';
 import { CatalogoLibrosRoutingResolveService } from '../../catalogolibros/route/user-routing-resolve.service';
 import { CatalogoLibrosComponent } from '../../catalogolibros/list/catalogolibros.component';
+import {RetiroComponent} from "../../prestamos/retiro/retiro.component";
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'catalogoLibros',   component: CatalogoLibrosComponent },
-    { path: 'user',   component: UserComponent },
+    { path: 'catalogoLibros', component: CatalogoLibrosComponent },
+    { path: 'user',           component: UserComponent },
     { path: 'table-list',     component: TableListComponent },
     { path: 'typography',     component: TypographyComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
+    { path: 'retiro',        component: RetiroComponent},
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     {

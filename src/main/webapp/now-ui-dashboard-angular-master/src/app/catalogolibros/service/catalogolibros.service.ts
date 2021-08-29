@@ -34,12 +34,12 @@ export class CatalogoLibrosService {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  inExistence(): Observable<EntityResponseType> {
-    return this.http.get<ICatalogoLibros>(`${this.resourceUrl}/enexistencia/`, { observe: 'response' });
+  inExistence(): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/enexistencia/`, { observe: 'response' });
   }
 
-  soldout(): Observable<EntityResponseType> {
-    return this.http.get<ICatalogoLibros>(`${this.resourceUrl}/soldOut/`, { observe: 'response' });
+  soldout(): Observable<EntityArrayResponseType> {
+    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/soldOut/`, { observe: 'response' });
   }
 
   getByAnno(id: number): Observable<EntityArrayResponseType> {
@@ -54,8 +54,8 @@ export class CatalogoLibrosService {
     return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/devolver/${id}`, { observe: 'response' });
   }
 
-  prestar(id: number): Observable<EntityArrayResponseType> {
-    return this.http.get<ICatalogoLibros[]>(`${this.resourceUrl}/prestar/${id}`, { observe: 'response' });
+  prestar(id: number): Observable<EntityResponseType> {
+    return this.http.get<ICatalogoLibros>(`${this.resourceUrl}/prestar/${id}`, { observe: 'response' });
   }
 
   getEditorial(filter: string): Observable<EntityArrayResponseType> {

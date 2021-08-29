@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 export class NotificationsComponent implements OnInit {
 
   constructor(private toastr: ToastrService) {}
+
   showNotification(from, align){
 
       const color = Math.floor((Math.random() * 5) + 1);

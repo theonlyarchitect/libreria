@@ -20,13 +20,14 @@ import { UserDeleteDialogComponent } from '../../user/delete/user-delete-dialog'
 import { CatalogoLibrosDeleteDialogComponent } from '../../catalogolibros/delete/catalogolibros-delete-dialog';
 import { CatalogoLibrosComponent } from '../../catalogolibros/list/catalogolibros.component'
 import { CatalogoLibrosUpdateComponent } from '../../catalogolibros/update/catalogolibros-update.component';
+import {RetiroComponent} from "../../prestamos/retiro/retiro.component";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     ChartsModule,
-    
+
     NgbModule,
     ToastrModule.forRoot(),
     FormsModule, ReactiveFormsModule
@@ -36,6 +37,7 @@ import { CatalogoLibrosUpdateComponent } from '../../catalogolibros/update/catal
     CatalogoLibrosComponent,
     CatalogoLibrosUpdateComponent,
     UserComponent,
+    RetiroComponent,
     UserDeleteDialogComponent,
     CatalogoLibrosDeleteDialogComponent,
     UserUpdateComponent,
